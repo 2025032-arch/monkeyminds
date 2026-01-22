@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monkey Minds - English Learning Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Main Menu -->
+        <div id="mainMenu" class="menu-screen">
+            <div class="forest-decoration forest-top">🌳 🌲 🌳 🌲 🌳</div>
+            <h1 class="title">🐵 Monkey Minds</h1>
+            <p class="subtitle">Master English by Defeating Monsters</p>
+            <button class="btn btn-large" onclick="showDifficultySelection()">Start Game</button>
+            <button class="btn btn-large" onclick="showInstructions()">Instructions</button>
+            <button class="btn btn-large" onclick="showStats()">Stats</button>
+            <button class="btn btn-large" onclick="showMistakesBooklet()">📖 Mistakes Booklet</button>
+            <div class="forest-decoration forest-bottom">🌳 🌲 🌳 🌲 🌳</div>
+        </div>
+
+        <!-- Difficulty Selection Screen -->
+        <div id="difficultySelectionMenu" class="menu-screen hidden">
+            <h2>Choose Your English Level</h2>
+            <div class="difficulty-selection">
+                <div class="difficulty-card" onclick="selectDifficulty('beginner')">
+                    <div class="difficulty-level">Level 1</div>
+                    <p class="difficulty-name">Beginner</p>
+                    <p class="difficulty-desc">Common words & basics</p>
+                </div>
+                <div class="difficulty-card" onclick="selectDifficulty('intermediate')">
+                    <div class="difficulty-level">Level 2</div>
+                    <p class="difficulty-name">Intermediate</p>
+                    <p class="difficulty-desc">Trickier spellings</p>
+                </div>
+                <div class="difficulty-card" onclick="selectDifficulty('advanced')">
+                    <div class="difficulty-level">Level 3</div>
+                    <p class="difficulty-name">Advanced</p>
+                    <p class="difficulty-desc">Challenging words</p>
+                </div>
+            </div>
+            <button class="btn" onclick="backToMenu()">Back to Menu</button>
+        </div>
+
+        <!-- Character Selection Screen -->
+        <div id="characterSelectionMenu" class="menu-screen hidden">
+            <h2>Choose Your Monkey Warrior</h2>
+            <div class="character-selection">
+                <div class="character-card" onclick="selectCharacter('goldie')">
+                    <div class="character-emoji">🐵</div>
+                    <p class="character-name">Goldie</p>
+                    <p class="character-desc">Golden Fur</p>
+                    <p class="character-weapon">Weapon: 🔱 Trident</p>
+                </div>
+                <div class="character-card" onclick="selectCharacter('shadow')">
+                    <div class="character-emoji">🐒</div>
+                    <p class="character-name">Shadow</p>
+                    <p class="character-desc">Black Fur</p>
+                    <p class="character-weapon">Weapon: ⚔️ Sword</p>
+                </div>
+                <div class="character-card" onclick="selectCharacter('rusty')">
+                    <div class="character-emoji">🦁</div>
+                    <p class="character-name">Rusty</p>
+                    <p class="character-desc">Rust Fur</p>
+                    <p class="character-weapon">Weapon: 🪓 Axe</p>
+                </div>
+                <div class="character-card" onclick="selectCharacter('pearl')">
+                    <div class="character-emoji">🐵</div>
+                    <p class="character-name">Pearl</p>
+                    <p class="character-desc">White Fur</p>
+                    <p class="character-weapon">Weapon: 🏹 Bow</p>
+                </div>
+            </div>
+            <button class="btn" onclick="backToMenu()">Back to Menu</button>
+        </div>
+
+        <!-- Instructions Screen -->
+        <div id="instructionsMenu" class="menu-screen hidden">
+            <h2>How to Play</h2>
+            <div class="instructions-content">
+                <p><strong>Objective:</strong> Defeat monsters by spelling words correctly!</p>
+                <ol>
+                    <li>Listen to the word pronunciation</li>
+                    <li>Read the word definition</li>
+                    <li>Type the correct spelling</li>
+                    <li>Press Enter or click "Check" to submit</li>
+                    <li>Correct spelling = Monster takes damage</li>
+                    <li>Defeat all monsters to advance to the next level</li>
+                </ol>
+                <p><strong>Tips:</strong></p>
+                <ul>
+                    <li>Use the "Hint" button for clues</li>
+                    <li>Use "Pronounce" to hear the word again</li>
+                    <li>Combo correct answers for bonus damage!</li>
+                </ul>
+            </div>
+            <button class="btn" onclick="hideInstructions()">Back to Menu</button>
+        </div>
+
+        <!-- Stats Screen -->
+        <div id="statsMenu" class="menu-screen hidden">
+            <h2>Your Statistics</h2>
+            <div class="stats-content">
+                <div class="stat-row">
+                    <span>Words Learned:</span>
+                    <span id="statsWordsLearned">0</span>
+                </div>
+                <div class="stat-row">
+                    <span>Correct Spellings:</span>
+                    <span id="statsCorrect">0</span>
+                </div>
+                <div class="stat-row">
+                    <span>Accuracy:</span>
+                    <span id="statsAccuracy">0%</span>
+                </div>
+                <div class="stat-row">
+                    <span>Monsters Defeated:</span>
+                    <span id="statsMonsters">0</span>
+                </div>
+                <div class="stat-row">
+                    <span>Highest Level:</span>
+                    <span id="statsLevel">1</span>
+                </div>
+            </div>
+            <button class="btn" onclick="resetStats()">Reset Stats</button>
+            <button class="btn" onclick="hideStats()">Back to Menu</button>
+        </div>
+
+        <!-- Mistakes Booklet Screen -->
+        <div id="mistakesMenu" class="menu-screen hidden">
+            <h2>📖 Mistakes Booklet</h2>
+            <p class="booklet-subtitle">Review the words you need to practice (<span id="mistakesCount">0</span> mistakes)</p>
+            <div id="mistakesContent" class="mistakes-content">
+            </div>
+            <div class="button-group">
+                <button class="btn" onclick="clearMistakes()">Clear All Mistakes</button>
+                <button class="btn" onclick="hideMistakesBooklet()">Back to Menu</button>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="gameScreen" class="game-screen hidden">
+            <div class="game-header">
+                <div class="player-info">
+                    <span id="playerDisplay">🐵 Goldie</span>
+                </div>
+                <div class="difficulty-info">
+                    <span id="difficultyDisplay">Beginner</span>
+                </div>
+                <div class="level-info">
+                    <span>Round <span id="currentLevel">1</span>/3</span>
+                </div>
+                <div class="score-info">
+                    <span>Score: <span id="score">0</span></span>
+                    <span>Combo: <span id="combo">0</span>x</span>
+                </div>
+                <button class="btn-small" onclick="pauseGame()">Pause</button>
+            </div>
+
+            <div class="game-area">
+                <!-- Player Display -->
+                <div class="player-section">
+                    <div class="player" id="player">
+                        <div class="player-character" id="playerCharacter">🐵</div>
+                        <div class="player-weapon" id="playerWeapon">🔱</div>
+                        <p class="player-name" id="playerName">Goldie</p>
+                    </div>
+                </div>
+
+                <!-- Monster Display -->
+                <div class="monster-section">
+                    <div class="monster" id="monster">
+                        <div class="monster-body">👹</div>
+                        <div class="monster-health-bar">
+                            <div class="monster-health" id="monsterHealth"></div>
+                        </div>
+                        <div class="monster-health-text">
+                            <span id="monsterHPText">100/100</span>
+                        </div>
+                    </div>
+                    <div class="distance-bar-container">
+                        <label>Distance:</label>
+                        <div class="distance-bar">
+                            <div class="distance-fill" id="monsterDistance"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Word Information -->
+                <div class="word-section">
+                    <div class="word-info">
+                        <p class="definition">
+                            <strong>Definition:</strong> <span id="definition"></span>
+                        </p>
+                        <p class="part-of-speech">
+                            <em id="partOfSpeech"></em>
+                        </p>
+                    </div>
+
+                    <!-- Input Area -->
+                    <div class="input-area">
+                        <input 
+                            type="text" 
+                            id="spellInput" 
+                            class="spell-input" 
+                            placeholder="Type the spelling here..."
+                            autocomplete="off"
+                        >
+                        <div class="feedback" id="feedback"></div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="button-group">
+                        <button class="btn-action" onclick="pronounceWord()">🔊 Pronounce</button>
+                        <button class="btn-action" onclick="showHint()">💡 Hint</button>
+                        <button class="btn-action btn-submit" onclick="submitSpelling()">⚔️ Attack</button>
+                    </div>
+
+                    <!-- Weapon Display -->
+                    <div class="weapon-display">
+                        <p>Current Weapon: <span id="weaponName">Trident</span></p>
+                    </div>
+                </div>
+
+                <!-- Monster Counter -->
+                <div class="monster-counter">
+                    <p>Monsters Remaining: <span id="monstersRemaining">3</span></p>
+                </div>
+            </div>
+
+            <button class="btn-small" onclick="quitGame()">Quit Game</button>
+        </div>
+
+        <!-- Level Complete Screen -->
+        <div id="levelCompleteScreen" class="menu-screen hidden">
+            <h2>🎉 Level Complete!</h2>
+            <div class="level-complete-content">
+                <p id="levelCompleteMessage"></p>
+                <div class="stats-content">
+                    <div class="stat-row">
+                        <span>Words Spelled Correctly:</span>
+                        <span id="levelStats">0</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>Level Score:</span>
+                        <span id="levelScore">0</span>
+                    </div>
+                </div>
+            </div>
+            <button class="btn" onclick="nextLevel()">Next Level</button>
+            <button class="btn" onclick="backToMenu()">Back to Menu</button>
+        </div>
+
+        <!-- Pause Screen -->
+        <div id="pauseScreen" class="menu-screen hidden">
+            <h2>Game Paused</h2>
+            <button class="btn" onclick="resumeGame()">Resume</button>
+            <button class="btn" onclick="backToMenu()">Back to Menu</button>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div id="gameOverScreen" class="menu-screen hidden">
+            <h2>Game Over</h2>
+            <p id="gameOverMessage"></p>
+            <div class="stats-content">
+                <div class="stat-row">
+                    <span>Final Score:</span>
+                    <span id="finalScore">0</span>
+                </div>
+                <div class="stat-row">
+                    <span>Level Reached:</span>
+                    <span id="finalLevel">1</span>
+                </div>
+            </div>
+            <button class="btn" onclick="startGame()">Play Again</button>
+            <button class="btn" onclick="backToMenu()">Back to Menu</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
